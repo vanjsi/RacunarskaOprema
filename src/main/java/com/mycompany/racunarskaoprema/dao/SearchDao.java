@@ -2,6 +2,8 @@ package com.mycompany.racunarskaoprema.dao;
 
 import com.mycompany.racunarskaoprema.data.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchDao {
     private Connection connection;
@@ -53,5 +55,23 @@ public class SearchDao {
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, id);
         stmt.executeUpdate();
+    }
+    
+    
+    public List<Search> findAll() throws SQLException {
+        List<Search> searches = new ArrayList<>();
+        String query = "SELECT * FROM search";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Search search = new Search();
+            search.setIdSearch(rs.getInt("id_search"));
+            search.setFkUser(rs.getInt("fk_user"));
+            search.setFkSearchSettings(rs.getInt("fk_search_settings"));
+            search.setKeyword(rs.getString("keyword"));
+            search.setSearchDate(rs.getTimestamp("search_date"));
+            searches.add(search);
+        }
+        return searches;
     }
 }

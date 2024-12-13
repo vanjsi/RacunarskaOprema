@@ -2,6 +2,8 @@ package com.mycompany.racunarskaoprema.dao;
 
 import com.mycompany.racunarskaoprema.data.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDao {
     private Connection connection;
@@ -53,5 +55,23 @@ public class ProductDao {
         PreparedStatement stmt = connection.prepareStatement(query);
         stmt.setInt(1, id);
         stmt.executeUpdate();
+    }
+    
+   
+    public List<Product> findAll() throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT * FROM product";
+        PreparedStatement stmt = connection.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Product product = new Product();
+            product.setIdProduct(rs.getInt("id_product"));
+            product.setName(rs.getString("name"));
+            product.setPrice(rs.getBigDecimal("price"));
+            product.setType(rs.getString("type"));
+            product.setStock(rs.getInt("stock"));
+            products.add(product);
+        }
+        return products;
     }
 }

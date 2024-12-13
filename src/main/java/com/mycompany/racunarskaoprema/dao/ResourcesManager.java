@@ -1,16 +1,13 @@
-
 package com.mycompany.racunarskaoprema.dao;
 
-import com.mycompamy.racunarskaoprema.exception.RacunarskaOpremaException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import com.mycompany.racunarskaoprema.exception.RacunarskaOpremaException;
 
 public class ResourcesManager {
-
     static {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -53,4 +50,3 @@ public class ResourcesManager {
         }
     }
 }
-
